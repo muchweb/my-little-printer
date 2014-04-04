@@ -1,0 +1,148 @@
+html {
+	/*background: rgb(220, 220, 220);*/
+}
+
+body {
+	width: 640px;
+	margin: 0;
+	font-family: Arial;
+	/*background: rgb(240, 240, 240);*/
+}
+
+h1 {
+	text-align: center;
+	font-size: 44px;
+	font-weight: bold;
+	text-transform: uppercase;
+	padding: 8px 0;
+	margin: 6px auto;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+h1 > img {
+	height: 44px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+h2 {
+	text-align: center;
+	font-size: 28px;
+	text-transform: uppercase;
+	padding: 14px 0;
+	margin: 6px auto;
+}
+
+.weather {
+	height: 120px;
+	overflow: hidden;
+	margin-bottom: 50px;
+}
+
+.weather > .day {
+	position: relative;
+	width: 25%;
+	float: left;
+	height: 120px;
+	box-sizing: border-box;
+}
+
+.weather > .day > .date {
+	text-align: center;
+	font-size: 26px;
+	font-weight: bold;
+	padding: 6px 0 6px 0;
+}
+
+/*.weather > .day:not(:first-child) {
+	background: black;
+	color: white;
+}
+.weather > .day:not(:first-child) > .icon {
+	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'invert\'><feColorMatrix in='SourceGraphic' type='matrix' values='-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0'/></filter></svg>#invert");
+	-webkit-filter: invert(100%);
+	filter: invert(100%);
+}*/
+
+.weather > .day:first-child {
+	border: 1px solid black;
+	border-radius: 4px;
+}
+
+.weather > .day:first-child > .date {
+	background: black;
+	color: white;
+}
+
+.weather > .day > .icon {
+	position: absolute;
+	left: -12px;
+	bottom: -12px;
+}
+
+.weather > .day > .icon > img{
+	width: 100px;
+	height: 100px;
+}
+
+.weather > .day > .min,
+.weather > .day > .max {
+	position: absolute;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.weather > .day > .min {
+	right: 15px;
+	bottom: 41px;
+}
+
+.weather > .day > .max {
+	right: 15px;
+	bottom: 10px;
+}
+
+article > h3 {
+	font-size: 28px;
+	text-align: center;
+	text-transform: uppercase;
+	margin: 26px 0 12px 0;
+	padding: 0;
+}
+
+article > p {
+	margin: 0;
+	padding: 0;
+	font-size: 26px;
+	column-count: 2;
+	-moz-column-count: 2;
+	-webkit-column-count: 2;
+}
+
+.word {
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	height: 300px;
+	background: url(border.jpg);
+	background-size: cover
+}
+
+.word > .w {
+	display: inline-block;
+	font-family: Times;
+	text-transform: lowercase;
+	font-weight: bold;
+	font-size: 50px;
+	width: 500px;
+}
+
+.word > .d {
+	display: inline-block;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 24px;
+	width: 500px;
+}

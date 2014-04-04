@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+	<h1>Weather for today</h1>
+	<h2>
+		{{#forecast.daily}}
+			{{#with data.[0]}}
+				{{summary}}
+			{{/with}}
+		{{/forecast.daily}}
+	</h2>
+	<div class="weather">
+		{{#forecast.daily}}
+			{{#data}}
+				<div class="day">
+					<div class="date">{{moment}}</div>
+					<div class="icon"><img src="./icons/{{icon}}.svg" /></div>
+					<div class="min">{{temperatureMin}}℃</div>
+					<div class="max">{{temperatureMax}}℃</div>
+				</div>
+			{{/data}}
+		{{/forecast.daily}}
+	</div>
+	<h1><img src="http://www.dgrade.com/wp-content/uploads/2013/07/BBC-logo.png" /> News</h1>
+	<div class="news">
+		<article>
+			{{#rss}}
+				<h3>{{title}}</h3>
+				<p>{{description}}</p>
+			{{/rss}}
+		</article>
+	</div>
+	<h1>Word of the day</h1>
+	<div class="word">
+		<div class="w">{{word.title}}</div>
+		<div class="d">{{word.description}}</div>
+	</div>
+</body>
+</html>

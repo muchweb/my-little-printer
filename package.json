@@ -1,0 +1,13 @@
+{
+  "name": "my-little-printer",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "webshot": "^0.11.1",
+    "forecast": "^0.1.1",
+    "handlebars": "^2.0.0-alpha.2",
+    "moment": "^2.5.1",
+    "feedparser": "^0.16.6",
+    "broadway": "^0.2.9"
+  }
+}
