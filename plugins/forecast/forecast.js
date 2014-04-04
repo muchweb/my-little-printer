@@ -6,7 +6,6 @@ var fs = require('fs'),
 exports.init = function (done) {
 
 	// This plugin does not need any extra preparation
-
 	return done();
 };
 

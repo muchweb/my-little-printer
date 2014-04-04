@@ -6,7 +6,6 @@ var fs = require('fs'),
 exports.init = function (done) {
 
 	// This plugin does not need any extra preparation
-
 	return done();
 };
 
@@ -30,7 +29,6 @@ exports.attach = function (configuration) {
 			var article_data = [],
 				item;
 
-			// http://wordsmith.org/awad/rss1.xml
 			fs.createReadStream(configuration.plugins.word.homedir + 'word.xml').on('error', function (error) {
 				console.error(error);
 			}).pipe(new FeedParser()).on('error', function (error) {
