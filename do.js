@@ -6,6 +6,9 @@ var webshot = require('webshot'),
 	broadway = require('broadway'),
 	app = new broadway.App();
 
+
+require('colors');
+
 app.pluglist = {
 	prepare: [],
 	process: [],
@@ -26,22 +29,25 @@ app.init(function (err) {
 		console.log(err);
 });
 
+process.stdout.write('Downloading...');
 Promise.all(app.pluglist.prepare.map(function (data_mapped) {
 	return data_mapped();
 })).then(function (res) {
-    console.log('preparation results', res);
+	console.log(' OK'.green);
+	process.stdout.write('Processing results...');
 
 	Promise.all(app.pluglist.process.map(function (data_mapped) {
 		return data_mapped();
 	})).then(function (res) {
+		console.log(' OK'.green);
+		process.stdout.write('Creating page...');
+
 		var data = {};
 
 		for (var i = 0; i < res.length; i++)
 			for (var j in res[i])
 				if (res[i].hasOwnProperty(j))
 					data[j] = res[i][j];
-
-	    console.log(res, data);
 
 	    var templateFile = fs.readFileSync('./index.hbs', 'utf8');
 		var template = handlebars.compile(templateFile);
@@ -51,8 +57,6 @@ Promise.all(app.pluglist.prepare.map(function (data_mapped) {
 		    if (err)
 		        return reject(err);
 
-		    // TODO
-		    console.log(__dirname);
 		    webshot('file://' + __dirname + '/index.html', 'image.png', {
 				windowSize: {
 					width: 100,
@@ -63,9 +67,11 @@ Promise.all(app.pluglist.prepare.map(function (data_mapped) {
 					height: 'all',
 				},
 			}, function (err) {
-				console.log(err);
+				if (err)
+					console.log(err);
 
-				console.log('Printing...');
+    			console.log(' OK'.green);
+				console.log('All done. Printing.'.cyan);
 				
 				exec('./print.sh', function (error, stdout, stderr) {
 					// output is in stdout

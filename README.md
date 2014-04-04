@@ -1,8 +1,10 @@
-# My Little Printer
+![](https://raw.githubusercontent.com/muchweb/my-little-printer/master/logo.png)
 
-Allows to print beautifully formatted receipts, generated locally, on any [CUPS](http://www.cups.org/) printer with lite 'plug-in' system.
+Print beautifully formatted receipts, generated locally, to any [CUPS](http://www.cups.org/) printer with lite 'plug-in' system.
 
-Comes with 'plug-ins' that allow to print a weather report and news feed. Optimized for 80mm paper output (640 pixel width, can be changed). Tested on [Citizen CT-S2000](http://www.citizen-systems.com/product.aspx?id=101)
+Does *not* require arduino or any other additional hardware. My printer (I am using on [Citizen CT-S2000](http://www.citizen-systems.com/product.aspx?id=101)) is connected via USB.
+
+Comes with 'plug-in's that allow to print a weather report and news feed. Optimized for 80mm paper output (640 pixel width, can be changed). 
 
 ## Status
 
@@ -23,6 +25,14 @@ node ./do.js
 ```
 
 This will fetch latest weather and news data and produce an output
+
+## How does it work
+
+1. Download data from RSS feeds
+2. Parse feeds using [feedparser](https://github.com/danmactough/node-feedparser)
+3. Generate HTML using handlebars
+4. Generate image from HTML
+5. (lp)[http://www.cups.org/documentation.php/options.html]
 
 ## Requirements
 

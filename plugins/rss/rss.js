@@ -35,7 +35,7 @@ exports.attach = function (configuration) {
 			}).pipe(new FeedParser()).on('error', function (error) {
 				console.error(error);
 			}).on('meta', function (meta) {
-				console.log('===== %s =====', meta.title);
+				// console.log('===== %s =====', meta.title);
 			}).on('readable', function() {
 				while ((item = this.read()) && counter < 5) {
 					counter++;
