@@ -32,7 +32,7 @@ This will fetch latest weather and news data and produce an output
 2. Parse feeds using [feedparser](https://github.com/danmactough/node-feedparser)
 3. Generate HTML using handlebars
 4. Generate image from HTML
-5. (lp)[http://www.cups.org/documentation.php/options.html]
+5. [lp](http://www.cups.org/documentation.php/options.html)
 
 ## Requirements
 
