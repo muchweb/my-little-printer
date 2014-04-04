@@ -16,8 +16,6 @@ exports.attach = function (configuration) {
 		var my_forecast = new forecast(configuration.plugins.forecast.init);
 
 		return new Promise(function (resolve, reject) {
-							resolve('forecast.json');
-							return;
 			my_forecast.get(configuration.plugins.forecast.target, function (err, weather) {
 				if (err)
 					console.log(err);

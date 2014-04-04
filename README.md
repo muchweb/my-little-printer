@@ -12,7 +12,7 @@ Project is in early draft state. I am looking for a better way to inport 'plugin
 npm install
 ```
 
-Add your forecast.io key and location to `printerfile.json`
+Add your [forecast.io API](https://developer.forecast.io/) key and desired location to `printerfile.json`
 
 ## Running
 
@@ -24,6 +24,6 @@ This will fetch latest weather and news data and produce an output
 
 ## Requirements
 
-forecast.io account
-Printer must be installed as default [CUPS](http://www.cups.org/) printer
-PhantomJS
+ - [forecast.io API](https://developer.forecast.io/) account
+ - Printer must be installed as default [CUPS](http://www.cups.org/) printer
+ - [PhantomJS](http://phantomjs.org/)

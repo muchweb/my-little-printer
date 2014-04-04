@@ -52,7 +52,8 @@ Promise.all(app.pluglist.prepare.map(function (data_mapped) {
 		        return reject(err);
 
 		    // TODO
-		    webshot('file:///home/full-path-here/index.html', 'image.png', {
+		    console.log(__dirname);
+		    webshot('file://' + __dirname + '/index.html', 'image.png', {
 				windowSize: {
 					width: 100,
 					height: 100,
