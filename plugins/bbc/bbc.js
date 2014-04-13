@@ -11,13 +11,15 @@ exports.init = function (done) {
 
 exports.attach = function (configuration) {
 
+	var feed_file = 'bbc.xml';
+
 	// Preparation. Downloading all required data
 	configuration.app.pluglist.prepare.push(function () {
 		return new Promise(function (resolve, reject) {
-			var file = fs.createWriteStream(configuration.plugins.rss.homedir + 'rss.xml'),
+			var file = fs.createWriteStream(configuration.plugins.bbc.homedir + feed_file),
 				request = http.get('http://feeds.bbci.co.uk/news/rss.xml', function (response) {
 					response.pipe(file);
-					resolve('rss.xml');
+					resolve(feed_file);
 				});
 		});
 	});
@@ -30,7 +32,7 @@ exports.attach = function (configuration) {
 				article_data = [],
 				item;
 
-			fs.createReadStream(configuration.plugins.rss.homedir + 'rss.xml').on('error', function (error) {
+			fs.createReadStream(configuration.plugins.bbc.homedir + feed_file).on('error', function (error) {
 				console.error(error);
 			}).pipe(new FeedParser()).on('error', function (error) {
 				console.error(error);
@@ -50,6 +52,17 @@ exports.attach = function (configuration) {
 							rss: article_data,
 						});
 				}
+			});
+		});
+	});
+
+	// Removing all temporary data.
+	configuration.app.pluglist.done.push(function () {
+		return new Promise(function (resolve, reject) {
+			fs.unlink(configuration.plugins.bbc.homedir + feed_file, function (err) {
+				if (err)
+					return reject(err);
+				resolve();
 			});
 		});
 	});

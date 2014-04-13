@@ -8,7 +8,13 @@ Comes with 'plug-in's that allow to print a weather report and news feed. Optimi
 
 ## Status
 
-Project is in early draft state. I am looking for a better way to import 'plug-ins', i. e. Grunt-style, where each 'plug-in' is separated to node module.
+Project is in early draft state.
+
+## TODO
+
+ - I am looking for a better way to import 'plug-ins', i. e. Grunt-style, where each 'plug-in' is separated to node module.
+ - Each part should render seperately
+ - Compatability with 'printer'
 
 ## Installing
 

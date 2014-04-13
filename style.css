@@ -1,12 +1,7 @@
-html {
-	/*background: rgb(220, 220, 220);*/
-}
-
 body {
 	width: 640px;
 	margin: 0;
 	font-family: Arial;
-	/*background: rgb(240, 240, 240);*/
 }
 
 h1 {
@@ -54,16 +49,6 @@ h2 {
 	font-weight: bold;
 	padding: 6px 0 6px 0;
 }
-
-/*.weather > .day:not(:first-child) {
-	background: black;
-	color: white;
-}
-.weather > .day:not(:first-child) > .icon {
-	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'invert\'><feColorMatrix in='SourceGraphic' type='matrix' values='-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0'/></filter></svg>#invert");
-	-webkit-filter: invert(100%);
-	filter: invert(100%);
-}*/
 
 .weather > .day:first-child {
 	border: 1px solid black;

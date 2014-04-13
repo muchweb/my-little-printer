@@ -6,13 +6,13 @@ var webshot = require('webshot'),
 	broadway = require('broadway'),
 	app = new broadway.App();
 
-
 require('colors');
 
 app.pluglist = {
 	prepare: [],
 	process: [],
 	render: [],
+	done: [],
 };
 
 var configuration = require('./printerfile.json');
@@ -76,6 +76,10 @@ Promise.all(app.pluglist.prepare.map(function (data_mapped) {
 				exec('./print.sh', function (error, stdout, stderr) {
 					// output is in stdout
 				});
+
+				Promise.all(app.pluglist.done.map(function (data_mapped) {
+					return data_mapped();
+				}));
 			});
 
 		});

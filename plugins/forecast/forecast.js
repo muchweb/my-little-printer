@@ -11,6 +11,8 @@ exports.init = function (done) {
 
 exports.attach = function (configuration) {
 
+	var save_file = 'forecast.json';
+
 	// Preparation. Downloading all required data
 	configuration.app.pluglist.prepare.push(function () {
 		var my_forecast = new forecast(configuration.plugins.forecast.init);
@@ -20,11 +22,11 @@ exports.attach = function (configuration) {
 				if (err)
 					console.log(err);
 				else
-					fs.writeFile(configuration.plugins.forecast.homedir + 'forecast.json', JSON.stringify(weather), function(err) {
+					fs.writeFile(configuration.plugins.forecast.homedir + save_file, JSON.stringify(weather), function(err) {
 						if (err)
 							console.log(err);
 						else
-							resolve('forecast.json');
+							resolve(save_file);
 					}); 
 			});
 		});
@@ -33,7 +35,7 @@ exports.attach = function (configuration) {
 	// Processing. Returned data will be used in the template
 	configuration.app.pluglist.process.push(function () {
 		return new Promise(function (resolve, reject) {
-			var data = require('./forecast.json');
+			var data = require('./' + save_file);
 
 			for (var i = 0; i < data.daily.data.length; i++) {
 				data.daily.data[i].moment = moment.unix(data.daily.data[i].time).format('ddd D');
@@ -45,6 +47,19 @@ exports.attach = function (configuration) {
 				forecast: data,
 			});
 
+		});
+	});
+
+
+
+	// Removing all temporary data.
+	configuration.app.pluglist.done.push(function () {
+		return new Promise(function (resolve, reject) {
+			fs.unlink(configuration.plugins.forecast.homedir + save_file, function (err) {
+				if (err)
+					return reject(err);
+				resolve();
+			});
 		});
 	});
 

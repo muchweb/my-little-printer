@@ -4,21 +4,23 @@ var fs = require('fs'),
 	FeedParser = require('feedparser');
 
 exports.init = function (done) {
-
-	// This plugin does not need any extra preparation
 	return done();
 };
 
 exports.attach = function (configuration) {
 
+	var feed_file = 'word.xml';
+
 	// Preparation. Downloading all required data
 	configuration.app.pluglist.prepare.push(function () {
 		return new Promise(function (resolve, reject) {
-			var file = fs.createWriteStream(configuration.plugins.word.homedir + 'word.xml'),
-				request = http.get('http://wordsmith.org/awad/rss1.xml', function(response) {
-					response.pipe(file);
-					resolve('word.xml');
-				});
+			var file = fs.createWriteStream(configuration.plugins.word.homedir + feed_file);
+
+			// Writing downloaded feed to disk
+			http.get('http://wordsmith.org/awad/rss1.xml', function(response) {
+				response.pipe(file);
+				resolve(feed_file);
+			});
 		});
 	});
 
@@ -29,12 +31,10 @@ exports.attach = function (configuration) {
 			var article_data = [],
 				item;
 
-			fs.createReadStream(configuration.plugins.word.homedir + 'word.xml').on('error', function (error) {
-				console.error(error);
+			fs.createReadStream(configuration.plugins.word.homedir + feed_file).on('error', function (error) {
+				reject(error);
 			}).pipe(new FeedParser()).on('error', function (error) {
-				console.error(error);
-			}).on('meta', function (meta) {
-				// console.log('===== %s =====', meta.title);
+				reject(error);
 			}).on('readable', function() {
 				while (item = this.read()) {
 					resolve({
@@ -46,7 +46,18 @@ exports.attach = function (configuration) {
 				}
 			});
 
-		}.bind(this));
+		});
+	});
+
+	// Removing all temporary data.
+	configuration.app.pluglist.done.push(function () {
+		return new Promise(function (resolve, reject) {
+			fs.unlink(configuration.plugins.word.homedir + feed_file, function (err) {
+				if (err)
+					return reject(err);
+				resolve();
+			});
+		});
 	});
 
 };
