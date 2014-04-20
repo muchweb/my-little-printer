@@ -33,10 +33,6 @@ Add your [forecast.io API](https://developer.forecast.io/) key and desired locat
 **or**
 Remove forecast entry from `printerile.json` if you don't have a key.
 
-```
-node ./do.js
-```
-
 ## Running
 
 ```
@@ -51,7 +47,7 @@ This will fetch latest weather and news data and produce an output
 2. Parse feeds using [feedparser](https://github.com/danmactough/node-feedparser)
 3. Generate HTML using handlebars
 4. Generate image from HTML
-5. [lp](http://www.cups.org/documentation.php/options.html)
+5. Running CUPS [lp](http://www.cups.org/documentation.php/options.html) command
 
 ## Requirements
 

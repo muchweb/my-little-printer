@@ -1,15 +1,15 @@
 {
   "name": "my-little-printer",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "private": true,
   "dependencies": {
-    "webshot": "^0.11.1",
+    "colors": "^0.6.2",
+    "feedparser": "^0.16.6",
     "forecast": "^0.1.1",
+    "gm": "^1.14.2",
     "handlebars": "^2.0.0-alpha.2",
     "moment": "^2.5.1",
-    "feedparser": "^0.16.6",
-    "colors": "^0.6.2",
     "q": "^1.0.1",
-    "gm": "^1.14.2"
+    "webshot": "^0.11.1"
   }
 }
