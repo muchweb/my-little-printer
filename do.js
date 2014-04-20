@@ -1,89 +1,52 @@
-var webshot = require('webshot'),
-	fs = require('fs'),
-	handlebars = require('handlebars'),
-	Promise = require('promise'),
+var Q = require('q'),
 	exec = require('child_process').exec,
-	broadway = require('broadway'),
-	app = new broadway.App();
+	colors = require('colors'),
+	gm = require('gm'),
+	plugin_list = require('./printerfile.json'),
+	i,
+	image = gm();
 
-require('colors');
+// Loading all modules
+plugin_list = plugin_list.map(function (plugin) {
+	if (typeof plugin === 'string')
+		plugin = {
+			name: plugin,
+			data: {},
+		}
 
-app.pluglist = {
-	prepare: [],
-	process: [],
-	render: [],
-	done: [],
-};
-
-var configuration = require('./printerfile.json');
-configuration.app = app;
-for (var key in configuration.plugins)
-	if (configuration.plugins.hasOwnProperty(key)) {
-		configuration.plugins[key].homedir = './plugins/' + key + '/';
-		app.use(require(configuration.plugins[key].homedir + key), configuration);
-	}
-
-
-app.init(function (err) {
-	if (err)
-		console.log(err);
+	console.log('Loaded plugin ' + plugin.name.yellow);
+	return new require('./plugins/' + plugin.name + '/main.js')('./plugins/' + plugin.name + '/', plugin.data);
 });
 
-process.stdout.write('Downloading...');
-Promise.all(app.pluglist.prepare.map(function (data_mapped) {
-	return data_mapped();
-})).then(function (res) {
-	console.log(' OK'.green);
-	process.stdout.write('Processing results...');
+console.log('Preparing...');
+Q.all(plugin_list.map(function (mod) {
+	return mod.prepare();
+})).then(function (results1) {
+	
+	console.log('Processing...');
+	Q.all(plugin_list.map(function (mod, index) {
+		return mod.process(results1[index]);
+	})).then(function (results2) {
 
-	Promise.all(app.pluglist.process.map(function (data_mapped) {
-		return data_mapped();
-	})).then(function (res) {
-		console.log(' OK'.green);
-		process.stdout.write('Creating page...');
+		console.log('Rendering...');
+		Q.all(plugin_list.map(function (mod, index) {
+			return mod.render(results2[index]);
+		})).then(function (results3) {
+			
+			console.log('Creating receipt...');
 
-		var data = {};
+			// Appending images
+			for (i = 0; i < results3.length; i++)
+				image.append(results3[i]);
 
-		for (var i = 0; i < res.length; i++)
-			for (var j in res[i])
-				if (res[i].hasOwnProperty(j))
-					data[j] = res[i][j];
-
-	    var templateFile = fs.readFileSync('./index.hbs', 'utf8');
-		var template = handlebars.compile(templateFile);
-		var html = template(data);
-
-		fs.writeFile('index.html', html, function(err) {
-		    if (err)
-		        return reject(err);
-
-		    webshot('file://' + __dirname + '/index.html', 'image.png', {
-				windowSize: {
-					width: 100,
-					height: 100,
-				},
-				shotSize: {
-					width: 'all',
-					height: 'all',
-				},
-			}, function (err) {
+			// Wrining final image
+			image.write('./out.png', function (err) {
 				if (err)
-					console.log(err);
+					return console.log(err);
 
-    			console.log(' OK'.green);
-				console.log('All done. Printing.'.cyan);
-				
-				exec('./print.sh', function (error, stdout, stderr) {
-					// output is in stdout
-				});
-
-				Promise.all(app.pluglist.done.map(function (data_mapped) {
-					return data_mapped();
-				}));
+				console.log('Printing...');
+				exec('./pring.sh')
 			});
-
 		});
-	}, function (e) {
-		console.log('aaa', e);
 	});
 });

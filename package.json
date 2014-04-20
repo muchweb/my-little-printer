@@ -8,8 +8,8 @@
     "handlebars": "^2.0.0-alpha.2",
     "moment": "^2.5.1",
     "feedparser": "^0.16.6",
-    "broadway": "^0.2.9",
-    "promise": "^4.0.0",
-    "colors": "^0.6.2"
+    "colors": "^0.6.2",
+    "q": "^1.0.1",
+    "gm": "^1.14.2"
   }
 }

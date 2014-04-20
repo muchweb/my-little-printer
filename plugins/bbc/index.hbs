@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+		body {
+			width: 640px;
+			margin: 0;
+			font-family: Arial;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 44px;
+			font-weight: bold;
+			text-transform: uppercase;
+			padding: 8px 0;
+			margin: 6px auto;
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+		}
+
+		h1 > img {
+			height: 44px;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		
+		article > h3 {
+			font-size: 28px;
+			text-align: center;
+			text-transform: uppercase;
+			margin: 26px 0 12px 0;
+			padding: 0;
+		}
+
+		article > p {
+			margin: 0;
+			padding: 0;
+			font-size: 26px;
+			column-count: 2;
+			-moz-column-count: 2;
+			-webkit-column-count: 2;
+		}
+	</style>
+</head>
+<body>
+	<h1><img src="http://www.dgrade.com/wp-content/uploads/2013/07/BBC-logo.png" /> News</h1>
+	<div class="news">
+		<article>
+			{{#this}}
+				<h3>{{title}}</h3>
+				<p>{{description}}</p>
+			{{/this}}
+		</article>
+	</div>
+</body>
+</html>

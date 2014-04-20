@@ -1,6 +1,7 @@
-{
-	"plugins": {
-		"forecast": {
+[
+	{
+		"name": "forecast",
+		"data": {
 			"init": {
 				"service": "forecast.io",
 				"key": "your_key",
@@ -12,12 +13,8 @@
 				}
 			},
 			"target": [50.000000, 50.000000]
-		},
-		"bbc": {
-
-		},
-		"word": {
-
 		}
-	}
-}
+	},
+	"bbc",
+	"word"
+]

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+		body {
+			width: 640px;
+			margin: 0;
+			font-family: Arial;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 44px;
+			font-weight: bold;
+			text-transform: uppercase;
+			padding: 8px 0;
+			margin: 6px auto;
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+		}
+
+		h2 {
+			text-align: center;
+			font-size: 28px;
+			text-transform: uppercase;
+			padding: 14px 0;
+			margin: 6px auto;
+		}
+
+		.weather {
+			height: 120px;
+			overflow: hidden;
+			margin-bottom: 50px;
+		}
+
+		.weather > .day {
+			position: relative;
+			width: 25%;
+			float: left;
+			height: 120px;
+			box-sizing: border-box;
+		}
+
+		.weather > .day > .date {
+			text-align: center;
+			font-size: 26px;
+			font-weight: bold;
+			padding: 6px 0 6px 0;
+		}
+
+		.weather > .day:first-child {
+			border: 1px solid black;
+			border-radius: 4px;
+		}
+
+		.weather > .day:first-child > .date {
+			background: black;
+			color: white;
+		}
+
+		.weather > .day > .icon {
+			position: absolute;
+			left: -12px;
+			bottom: -12px;
+		}
+
+		.weather > .day > .icon > img{
+			width: 100px;
+			height: 100px;
+		}
+
+		.weather > .day > .min,
+		.weather > .day > .max {
+			position: absolute;
+			font-size: 25px;
+			font-weight: bold;
+		}
+
+		.weather > .day > .min {
+			right: 15px;
+			bottom: 41px;
+		}
+
+		.weather > .day > .max {
+			right: 15px;
+			bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Weather for today</h1>
+	<h2>
+		{{#this.daily}}
+			{{#with data.[0]}}
+				{{summary}}
+			{{/with}}
+		{{/this.daily}}
+	</h2>
+	<div class="weather">
+		{{#this.daily}}
+			{{#data}}
+				<div class="day">
+					<div class="date">{{moment}}</div>
+					<div class="icon"><img src="./icons/{{icon}}.svg" /></div>
+					<div class="min">{{temperatureMin}}℃</div>
+					<div class="max">{{temperatureMax}}℃</div>
+				</div>
+			{{/data}}
+		{{/this.daily}}
+	</div>
+</body>
+</html>

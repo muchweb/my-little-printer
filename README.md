@@ -10,19 +10,32 @@ Comes with 'plug-in's that allow to print a weather report and news feed. Optimi
 
 Project is in early draft state.
 
+*Icons in `forecast` are currently broken* 
+
 ## TODO
 
- - I am looking for a better way to import 'plug-ins', i. e. Grunt-style, where each 'plug-in' is separated to node module.
- - Each part should render seperately
- - Compatability with 'printer'
+ - [ ] To separate 'plug-ins' in node packages
+ - [ ] Compatability with `printer` project
+ - [x] Each section should render seperately
+ - [x] To migrate from `Promise` to `Q` module
 
-## Installing
+## Installation
+
+Clone project and install all dependencies
 
 ```
+git clone https://github.com/muchweb/my-little-printer.git
+cd my-little-printer
 npm install
 ```
 
 Add your [forecast.io API](https://developer.forecast.io/) key and desired location to `printerfile.json`
+**or**
+Remove forecast entry from `printerile.json` if you don't have a key.
+
+```
+node ./do.js
+```
 
 ## Running
 
@@ -42,9 +55,13 @@ This will fetch latest weather and news data and produce an output
 
 ## Requirements
 
- - [forecast.io API](https://developer.forecast.io/) account
- - Printer must be installed as default [CUPS](http://www.cups.org/) printer
+ - Your printer must be installed as default [CUPS](http://www.cups.org/) printer
  - [PhantomJS](http://phantomjs.org/)
+ - [GraphicsMagick](http://www.graphicsmagick.org/) (on Debian could be easily installed by running `apt-get install graphicsmagick`)
+
+## Support
+
+ - [forecast.io API](https://developer.forecast.io/) account
 
 # Credits
 
